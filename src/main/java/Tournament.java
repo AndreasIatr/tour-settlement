@@ -7,6 +7,7 @@ class Tournament implements PrizeAllocator {
 
     private static final int QUOTIENT_SCALE = 2;
 
+    @Override
     public void awardPrizes(List<Participant> participants, Map<Integer, BigDecimal> prizes) {
         // assume original map should/could not be mutated
         prizes = new HashMap<>(prizes);
