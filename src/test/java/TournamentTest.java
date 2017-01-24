@@ -141,12 +141,12 @@ public class TournamentTest {
 
     @Test
     public void test_top_and_bottom_pairs_tie_six_participants() {
-        Participant participant2 = new Player("participant2", 77);
         Participant participant1 = new Player("participant1", 77);
+        Participant participant2 = new Player("participant2", 77);
         Participant participant3 = new Player("participant3", 46);
         Participant participant4 = new Player("participant4", 40);
-        Participant participant5 = new Player("participant4", 36);
-        Participant participant6 = new Player("participant4", 36);
+        Participant participant5 = new Player("participant5", 36);
+        Participant participant6 = new Player("participant6", 36);
 
         List<Participant> participants = Arrays.asList(
                 participant1,
