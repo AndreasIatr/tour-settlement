@@ -5,25 +5,18 @@ import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
-public class PrizeAllocatorImplTest {
+public class TournamentTest {
 
-    private PrizeAllocatorImpl prizeAllocator = new PrizeAllocatorImpl();
-
-    private Participant participant1;
-    private Participant participant2;
-    private Participant participant3;
-    private Participant participant4;
-
-    private List<Participant> participants;
+    private PrizeAllocator tournament = new Tournament();
 
     @Test
     public void test_clear_winners() {
-        participant1 = new Player("participant1", 77);
-        participant2 = new Player("participant2", 66);
-        participant3 = new Player("participant3", 46);
-        participant4 = new Player("participant4", 45);
+        Participant participant1 = new Player("participant1", 77);
+        Participant participant2 = new Player("participant2", 66);
+        Participant participant3 = new Player("participant3", 46);
+        Participant participant4 = new Player("participant4", 45);
 
-        participants = Arrays.asList(
+        List<Participant> participants = Arrays.asList(
             participant1,
             participant2,
             participant3,
@@ -34,7 +27,8 @@ public class PrizeAllocatorImplTest {
         prizes.put(1, BigDecimal.valueOf(50));
         prizes.put(2, BigDecimal.valueOf(20));
         prizes.put(3, BigDecimal.valueOf(10));
-        prizeAllocator.awardPrizes(participants, Collections.unmodifiableMap(prizes));
+        tournament.awardPrizes(participants, Collections.unmodifiableMap(prizes));
+
         assertEquals(BigDecimal.valueOf(5000, 2), participant1.getPrize());
         assertEquals(BigDecimal.valueOf(2000, 2), participant2.getPrize());
         assertEquals(BigDecimal.valueOf(1000, 2), participant3.getPrize());
@@ -43,12 +37,12 @@ public class PrizeAllocatorImplTest {
 
     @Test
     public void test_top_two_tie() {
-        participant1 = new Player("participant1", 77);
-        participant2 = new Player("participant2", 77);
-        participant3 = new Player("participant3", 46);
-        participant4 = new Player("participant4", 45);
+        Participant participant1 = new Player("participant1", 77);
+        Participant participant2 = new Player("participant2", 77);
+        Participant participant3 = new Player("participant3", 46);
+        Participant participant4 = new Player("participant4", 45);
 
-        participants = Arrays.asList(
+        List<Participant> participants = Arrays.asList(
                 participant1,
                 participant2,
                 participant3,
@@ -59,7 +53,8 @@ public class PrizeAllocatorImplTest {
         prizes.put(1, BigDecimal.valueOf(50));
         prizes.put(2, BigDecimal.valueOf(20));
         prizes.put(3, BigDecimal.valueOf(10));
-        prizeAllocator.awardPrizes(participants, Collections.unmodifiableMap(prizes));
+        tournament.awardPrizes(participants, Collections.unmodifiableMap(prizes));
+
         assertEquals(BigDecimal.valueOf(3500, 2), participant1.getPrize());
         assertEquals(BigDecimal.valueOf(3500, 2), participant2.getPrize());
         assertEquals(BigDecimal.valueOf(1000, 2), participant3.getPrize());
@@ -68,12 +63,12 @@ public class PrizeAllocatorImplTest {
 
     @Test
     public void test_middle_two_tie() {
-        participant1 = new Player("participant1", 77);
-        participant2 = new Player("participant2", 46);
-        participant3 = new Player("participant3", 46);
-        participant4 = new Player("participant4", 45);
+        Participant participant1 = new Player("participant1", 77);
+        Participant participant2 = new Player("participant2", 46);
+        Participant participant3 = new Player("participant3", 46);
+        Participant participant4 = new Player("participant4", 45);
 
-        participants = Arrays.asList(
+        List<Participant> participants = Arrays.asList(
                 participant1,
                 participant2,
                 participant3,
@@ -84,7 +79,8 @@ public class PrizeAllocatorImplTest {
         prizes.put(1, BigDecimal.valueOf(50));
         prizes.put(2, BigDecimal.valueOf(20));
         prizes.put(3, BigDecimal.valueOf(10));
-        prizeAllocator.awardPrizes(participants, Collections.unmodifiableMap(prizes));
+        tournament.awardPrizes(participants, Collections.unmodifiableMap(prizes));
+
         assertEquals(BigDecimal.valueOf(5000, 2), participant1.getPrize());
         assertEquals(BigDecimal.valueOf(1500, 2), participant2.getPrize());
         assertEquals(BigDecimal.valueOf(1500, 2), participant3.getPrize());
@@ -93,12 +89,12 @@ public class PrizeAllocatorImplTest {
 
     @Test
     public void test_three_way_tie() {
-        participant1 = new Player("participant1", 77);
-        participant2 = new Player("participant2", 45);
-        participant3 = new Player("participant3", 45);
-        participant4 = new Player("participant4", 45);
+        Participant participant1 = new Player("participant1", 77);
+        Participant participant2 = new Player("participant2", 45);
+        Participant participant3 = new Player("participant3", 45);
+        Participant participant4 = new Player("participant4", 45);
 
-        participants = Arrays.asList(
+        List<Participant> participants = Arrays.asList(
                 participant1,
                 participant2,
                 participant3,
@@ -109,7 +105,8 @@ public class PrizeAllocatorImplTest {
         prizes.put(1, BigDecimal.valueOf(50));
         prizes.put(2, BigDecimal.valueOf(7));
         prizes.put(3, BigDecimal.valueOf(3));
-        prizeAllocator.awardPrizes(participants, Collections.unmodifiableMap(prizes));
+        tournament.awardPrizes(participants, Collections.unmodifiableMap(prizes));
+
         assertEquals(BigDecimal.valueOf(5000, 2), participant1.getPrize());
         assertEquals(BigDecimal.valueOf(333, 2), participant2.getPrize());
         assertEquals(BigDecimal.valueOf(333, 2), participant3.getPrize());
@@ -118,12 +115,12 @@ public class PrizeAllocatorImplTest {
 
     @Test
     public void test_pairs_tie() {
-        participant1 = new Player("participant1", 77);
-        participant2 = new Player("participant2", 77);
-        participant4 = new Player("participant4", 46);
-        participant3 = new Player("participant3", 46);
+        Participant participant1 = new Player("participant1", 77);
+        Participant participant2 = new Player("participant2", 77);
+        Participant participant4 = new Player("participant4", 46);
+        Participant participant3 = new Player("participant3", 46);
 
-        participants = Arrays.asList(
+        List<Participant> participants = Arrays.asList(
                 participant1,
                 participant2,
                 participant3,
@@ -134,7 +131,8 @@ public class PrizeAllocatorImplTest {
         prizes.put(1, BigDecimal.valueOf(50));
         prizes.put(2, BigDecimal.valueOf(20));
         prizes.put(3, BigDecimal.valueOf(10));
-        prizeAllocator.awardPrizes(participants, Collections.unmodifiableMap(prizes));
+        tournament.awardPrizes(participants, Collections.unmodifiableMap(prizes));
+
         assertEquals(BigDecimal.valueOf(3500, 2), participant1.getPrize());
         assertEquals(BigDecimal.valueOf(3500, 2), participant2.getPrize());
         assertEquals(BigDecimal.valueOf(500, 2), participant3.getPrize());
@@ -142,36 +140,36 @@ public class PrizeAllocatorImplTest {
     }
 
     @Test
-    public void test_getParticipantsByScore() {
-        participant1 = new Player("participant1", 77);
-        participant2 = new Player("participant2", 66);
-        participant3 = new Player("participant3", 46);
-        participant4 = new Player("participant4", 45);
+    public void test_top_and_bottom_pairs_tie_six_participants() {
+        Participant participant2 = new Player("participant2", 77);
+        Participant participant1 = new Player("participant1", 77);
+        Participant participant3 = new Player("participant3", 46);
+        Participant participant4 = new Player("participant4", 40);
+        Participant participant5 = new Player("participant4", 36);
+        Participant participant6 = new Player("participant4", 36);
 
-        // wrapped in ArrayList in order to use List#remove
-        participants = new ArrayList<>(Arrays.asList(
+        List<Participant> participants = Arrays.asList(
                 participant1,
                 participant2,
                 participant3,
-                participant4
-        ));
+                participant4,
+                participant5,
+                participant6
+        );
 
-        Map<Integer, List<Participant>> sameScoreParticipants = prizeAllocator.getParticipantsByScoreSortedDesc(participants);
+        HashMap<Integer, BigDecimal> prizes = new HashMap<>();
+        prizes.put(1, BigDecimal.valueOf(50));
+        prizes.put(2, BigDecimal.valueOf(20));
+        prizes.put(3, BigDecimal.valueOf(10));
+        prizes.put(4, BigDecimal.valueOf(7));
+        prizes.put(5, BigDecimal.valueOf(5));
+        tournament.awardPrizes(participants, Collections.unmodifiableMap(prizes));
 
-        for (List<Participant> participantList : sameScoreParticipants.values()) {
-            assertEquals(1, participantList.size());
-        }
-        participants.remove(participant2);
-        participant2 = new Player("participant2", participant4.getScore());
-        participants.add(participant2);
-
-        sameScoreParticipants = prizeAllocator.getParticipantsByScoreSortedDesc(participants);
-
-        assertEquals(2, sameScoreParticipants.remove(45).size());
-        for (List<Participant> participantList : sameScoreParticipants.values()) {
-            assertEquals(1, participantList.size());
-        }
-
+        assertEquals(BigDecimal.valueOf(3500, 2), participant1.getPrize());
+        assertEquals(BigDecimal.valueOf(3500, 2), participant2.getPrize());
+        assertEquals(BigDecimal.valueOf(1000, 2), participant3.getPrize());
+        assertEquals(BigDecimal.valueOf(700, 2), participant4.getPrize());
+        assertEquals(BigDecimal.valueOf(250, 2), participant5.getPrize());
+        assertEquals(BigDecimal.valueOf(250, 2), participant6.getPrize());
     }
-
 }
